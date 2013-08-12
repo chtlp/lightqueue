@@ -8,7 +8,7 @@ class Factory(object):
 
     def __init__(self, multiprocessing=False, workers=4,
                  host='localhost', port=6379, db=0, queue_name='lightqueue',
-                 time_out=0.0):
+                 time_out=0):
 
         logging.basicConfig(format='%(asctime)s %(message)s',
                             level=logging.DEBUG)

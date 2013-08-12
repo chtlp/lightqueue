@@ -29,8 +29,8 @@ def start():
                         default='lightqueue',
                         help='lightqueue namespace in Redis db')
 
-    parser.add_argument('-t', action='store', dest='time_out', type=float,
-                        default=0.0,
+    parser.add_argument('-t', action='store', dest='time_out', type=int,
+                        default=0,
                         help='time out in pop')
 
     parser.add_argument('--version', action='version',

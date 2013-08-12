@@ -19,7 +19,7 @@ class Worker(object):
         while True:
             # Block until a job can be dequeued from the queue. Then execute it
 
-            job_tuple = self.queue.dequeue(time_out)
+            job_tuple = self.queue.dequeue(self.time_out)
 
             if job_tuple is not None:
                 self.current_pickled_job, job = job_tuple
