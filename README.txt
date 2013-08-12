@@ -1,3 +1,8 @@
+This fork
+========
+
+Add support for time-out dequeuing. So lightqueue will automatically exit when there are no more tasks in the queue.
+
 ===========
 lightqueue
 ===========
