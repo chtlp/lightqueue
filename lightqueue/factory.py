@@ -7,7 +7,8 @@ class Factory(object):
     # (sequential or parallel processing)
 
     def __init__(self, multiprocessing=False, workers=4,
-                 host='localhost', port=6379, db=0, queue_name='lightqueue'):
+                 host='localhost', port=6379, db=0, queue_name='lightqueue',
+                 time_out=0.0):
 
         logging.basicConfig(format='%(asctime)s %(message)s',
                             level=logging.DEBUG)
@@ -16,9 +17,10 @@ class Factory(object):
         # multiprocessing was enabled or not
         if multiprocessing:
             self.dispatcher = ParallelDispatcher(workers, host, port, db,
-                                                 queue_name)
+                                                 queue_name, time_out)
         else:
-            self.dispatcher = SequentialDispatcher(host, port, db, queue_name)
+            self.dispatcher = SequentialDispatcher(host, port, db,
+                                                   queue_name, time_out)
 
         message = ('lightqueue started processing jobs on ' + host + ':' +
                    repr(port) + ', db ' + repr(db))

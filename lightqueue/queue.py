@@ -21,14 +21,18 @@ class Queue(object):
         pickled_job = pickle.dumps(job)
         self.db.lpush(self.queue_name, pickled_job)
 
-    def dequeue(self):
+    def dequeue(self, time_out):
         # Remove a pickled job from the front of the queue and return a tuple
         # containing the pickled job and the unpickled job.  If the queue is
         # empty, block until an item is available.
 
         try:
-            pickled_job = self.db.brpop(self.queue_name)[1]
-            return (pickled_job, pickle.loads(pickled_job))
+            res = self.db.brpop(self.queue_name, time_out)
+            if res:
+                pickled_job = res[1]
+                return (pickled_job, pickle.loads(pickled_job))
+            else:
+                return None
         except KeyboardInterrupt:
             sys.exit()
 

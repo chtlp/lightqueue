@@ -36,7 +36,7 @@ class Func(object):
             sys.exit()
         except:
             # Some exception ocurred that caused the job to fail
-            self.job.failed(sys.exc_info()[0])
+            self.job.failed(str(sys.exc_info()))
 
     def __repr__(self):
         # Return the class of the caller, the name of the function, and the

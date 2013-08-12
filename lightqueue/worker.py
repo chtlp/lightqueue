@@ -6,9 +6,10 @@ from queue import Queue
 class Worker(object):
     # A worker dequeues and executes jobs from the queue
 
-    def __init__(self, host, port, db, queue_name):
+    def __init__(self, host, port, db, queue_name, time_out):
         self.queue = Queue(host, port, db, queue_name)
         self.current_pickled_job = None
+        self.time_out = time_out
 
         # Register handlers for SIGINT and SIGTERM
         signal.signal(signal.SIGINT, self.handle_exit)
@@ -18,11 +19,13 @@ class Worker(object):
         while True:
             # Block until a job can be dequeued from the queue. Then execute it
 
-            job_tuple = self.queue.dequeue()
+            job_tuple = self.queue.dequeue(time_out)
 
             if job_tuple is not None:
                 self.current_pickled_job, job = job_tuple
                 job.start(self)
+            else:
+                break
 
     def job_finished(self, job_id):
         self.current_pickled_job = None

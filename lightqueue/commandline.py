@@ -29,6 +29,10 @@ def start():
                         default='lightqueue',
                         help='lightqueue namespace in Redis db')
 
+    parser.add_argument('-t', action='store', dest='time_out', type=float,
+                        default=0.0,
+                        help='time out in pop')
+
     parser.add_argument('--version', action='version',
                         version='%(prog)s 0.1.0')
 
@@ -46,6 +50,7 @@ def start():
                 host=results.host,
                 port=results.port,
                 db=results.db,
-                queue_name=results.queue_name).start()
+                queue_name=results.queue_name,
+                time_out=results.time_out).start()
     else:
         print 'Use "lightqueue start" to start processing jobs'
