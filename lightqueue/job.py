@@ -33,6 +33,6 @@ class Job(object):
     def failed(self, error_str):
         # Log the error and tell the worker that this job completed
 
-        logging.debug('>>>>> Job #' + repr(self.id) + ' failed; ' +
-                      repr(error_str))
+        logging.debug('>>>>> Job #' + repr(self.id) + ' failed;\n' +
+                      str(error_str))
         self.worker.job_finished(self.id)

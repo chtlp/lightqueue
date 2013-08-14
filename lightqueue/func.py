@@ -1,5 +1,5 @@
 import sys
-
+from traceback import format_exception
 
 class Func(object):
 
@@ -35,8 +35,10 @@ class Func(object):
             # back onto the queue
             sys.exit()
         except:
+            etype, value, tb = sys.exc_info()
+            msg = '\n'.join(format_exception(etype, value, tb, 3))
             # Some exception ocurred that caused the job to fail
-            self.job.failed(str(sys.exc_info()))
+            self.job.failed(msg)
 
     def __repr__(self):
         # Return the class of the caller, the name of the function, and the
